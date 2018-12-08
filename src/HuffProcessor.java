@@ -82,7 +82,7 @@ public class HuffProcessor {
 				pq.add(new HuffNode(k,counts[k], null, null));
 			}
 		}
-		
+
 		while(pq.size() > 1) {
 			HuffNode left = pq.remove();
 			HuffNode right = pq.remove();
@@ -132,8 +132,12 @@ public class HuffProcessor {
 	
 	private void writeCompressedBits(String [] codings, BitInputStream in, BitOutputStream out) {
 		
-		for(int k=0;k<codings.length;k++) {
-			String code = codings[k];
+		while(true) {
+		int input = in.readBits(BITS_PER_WORD);
+		if(input ==-1) {
+			break;
+		}
+			String code = codings[input];
 			out.writeBits(code.length(), Integer.parseInt(code,2));
 	}
 		String code1 = codings[PSEUDO_EOF];
