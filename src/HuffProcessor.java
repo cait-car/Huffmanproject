@@ -30,7 +30,7 @@ public class HuffProcessor {
 	}
 	
 	public HuffProcessor(int debug) {
-		myDebugLevel = debug;
+		myDebugLevel = 5;
 	}
 
 	/**
@@ -41,6 +41,8 @@ public class HuffProcessor {
 	 * @param out
 	 *            Buffered bit stream writing to the output file.
 	 */
+
+	
 	public void compress(BitInputStream in, BitOutputStream out){
 
 		int[] counts = readForCounts(in);
@@ -56,7 +58,7 @@ public class HuffProcessor {
 	}
 	
 	
-
+	
 	private int[] readForCounts(BitInputStream in) {
 		int [] counts = new int [ALPH_SIZE+1];
 		
@@ -76,7 +78,7 @@ public class HuffProcessor {
 
 	private HuffNode makeTreeFromCounts(int [] counts) {
 		PriorityQueue<HuffNode> pq = new PriorityQueue<>();
-
+		
 		for(int k = 0; k<counts.length;k++) {
 			if(counts[k] > 0) {
 				pq.add(new HuffNode(k,counts[k], null, null));
@@ -89,8 +91,17 @@ public class HuffProcessor {
 			HuffNode newNode = new HuffNode(0 , left.myWeight+right.myWeight, left, right);
 			pq.add(newNode);
 		}
+		
+		if(myDebugLevel >= DEBUG_HIGH) {
+			System.out.printf("pq created with %d nodes\n", pq.size());
+		}
+		
+		
 		HuffNode root = pq.remove();
-		return root;
+		
+		
+		return root;	
+		
 	}
 
 	 
@@ -106,6 +117,10 @@ public class HuffProcessor {
 			
 			if (t.myLeft == null && t.myRight == null) {
 				encodings[t.myValue] = path;
+				
+				if(myDebugLevel >= DEBUG_HIGH) {
+					System.out.printf("encoding for %d is %s\n", t.myValue,path);
+				}
 				//return;
 			}
 			codingHelper(t.myLeft,path+"0",encodings);
