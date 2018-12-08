@@ -106,7 +106,7 @@ public class HuffProcessor {
 			
 			if (t.myLeft == null && t.myRight == null) {
 				encodings[t.myValue] = path;
-				return;
+				//return;
 			}
 			codingHelper(t.myLeft,path+"0",encodings);
 			codingHelper(t.myRight,path+"1",encodings);
