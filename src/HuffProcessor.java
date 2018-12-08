@@ -124,7 +124,7 @@ public class HuffProcessor {
 		
 		}
 		else {
-			out.write(0);
+			out.writeBits(1,0);
 			writeHeader(root.myRight, out);
 			writeHeader(root.myLeft, out);
 		}
