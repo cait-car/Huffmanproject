@@ -110,6 +110,8 @@ public class HuffProcessor {
 		String [] encodings = new String[ALPH_SIZE+1];
 		codingHelper(root,"",encodings);
 		return encodings;
+		
+
 	}
 		
 		private void codingHelper(HuffNode t, String path, String [] encodings) {
@@ -140,6 +142,10 @@ public class HuffProcessor {
 			out.writeBits(1,0);
 			writeHeader(root.myRight, out);
 			writeHeader(root.myLeft, out);
+		}
+		
+		if(myDebugLevel >= DEBUG_HIGH) {
+			System.out.printf("wrote leaf for tree %d \n ", root.myValue);
 		}
 		
 	}
