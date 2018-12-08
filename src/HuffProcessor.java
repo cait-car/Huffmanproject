@@ -106,7 +106,7 @@ public class HuffProcessor {
 			
 			if (t.myLeft == null && t.myRight == null) {
 				encodings[t.myValue] = path;
-				return;
+				//return;
 			}
 			codingHelper(t.myLeft,path+"0",encodings);
 			codingHelper(t.myRight,path+"1",encodings);
@@ -139,6 +139,7 @@ public class HuffProcessor {
 			out.writeBits(code1.length(), Integer.parseInt(code1,2));
 			break;
 			}
+			
 			String code = codings[input];
 			out.writeBits(code.length(), Integer.parseInt(code,2));
 		}
